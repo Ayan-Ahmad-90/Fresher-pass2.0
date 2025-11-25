@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>DarShana - Get Started</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    body { background: #f9f9fa; margin: 0; font-family: 'Segoe UI', Arial, sans-serif;}
+    .navbar { display: flex; justify-content: flex-end; align-items: center; background: #111; padding: 14px 24px;}
+    .get-started-btn { background: #08b71a; color: #fff; padding: 12px 28px; border: none; border-radius: 12px; font-size: 1.08em; font-weight: 700; cursor: pointer; transition: background 0.18s;}
+    .get-started-btn:hover { background: #059715;}
+    .user-avatar-btn { background: none; border: none; padding: 0; margin-left: 24px; cursor: pointer; display: flex; align-items: center;}
+    .user-pic { width: 38px; height: 38px; border-radius: 50%; object-fit: cover;}
+    .dropdown-menu {
+      display: none;
+      position: absolute;
+      top: 60px; right: 40px;
+      background: #fff;
+      border-radius: 14px;
+      box-shadow: 0 10px 32px rgba(0,0,0,0.14);
+      min-width: 270px;
+      z-index: 10;
+      overflow: hidden;
+      padding: 0;
+    }
+    .dropdown-menu.active { display: block; }
+    .dropdown-profile {
+      display: flex; flex-direction: column; align-items: center;
+      padding: 24px 0 8px 0;
+      border-bottom: 1px solid #f2f2f2;
+      background: #f8f8ff;
+    }
+    .dropdown-profile img {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-bottom: 7px;
+      box-shadow: 0 2px 8px #eee;
+    }
+    .dropdown-profile .name {
+      font-weight: 600;
+      font-size: 1.15em;
+      color: #212222;
+      margin-bottom: 2px;
+    }
+    .dropdown-profile .email {
+      font-size: 1em;
+      color: #7b7b7b;
+      word-break: break-all;
+      margin-bottom: 2px;
+    }
+    .dropdown-options {
+      display: flex;
+      flex-direction: column;
+      padding: 0;
+    }
+    .dropdown-options button {
+      background: none;
+      border: none;
+      color: #222;
+      font-size: 1.08em;
+      font-weight: 500;
+      text-align: left;
+      padding: 13px 30px;
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      cursor: pointer;
+      transition: background 0.13s;
+    }
+    .dropdown-options button:hover {
+      background: #f5f6ff;
+    }
+    .dropdown-options button:last-child {
+      color: #ff4848;
+      border-top: 1px solid #f1f1f1;
+      font-weight: 600;
+    }
+    .icon {
+      width: 20px; text-align: center;
+    }
+    .ds-auth-container, .ds-account-container {
+      max-width: 400px;
+      margin: 56px auto 0 auto;
+      padding: 36px 28px 18px 28px;
+      background: #fff;
+      border-radius: 18px;
+      box-shadow: 0 8px 48px rgba(0,0,0,0.09);
+      text-align: center;
+    }
+    .ds-logo { width: 58px; margin-bottom: 20px; }
+    .ds-auth-container h2, .ds-account-container h2 { margin-bottom: 7px; font-size: 1.35rem; font-weight: 700; color: #ffa600;}
+    .ds-auth-container p, .ds-account-container p {margin-bottom: 24px; color: #333; font-size: 1rem;}
+    .ds-google-btn {
+      width: 100%; padding: 11px 0; border-radius: 9px; border: 1px solid #ddd;
+      background: #fafbfc; font-weight: 600; margin-bottom: 20px; cursor: pointer;
+      display: flex; align-items: center; justify-content: center; gap: 10px;
+    }
+    .google-icon { font-size: 1.2em; }
+    .ds-or-divider { display: flex; align-items: center; margin: 14px 0 12px 0; color: #999; font-size: 1rem; gap: 9px; }
+    .ds-or-divider span:first-child, .ds-or-divider span:last-child {
+      flex-grow: 1; height: 1px; background: #eee;
+    }
+    label { display: block; text-align: left; font-weight: 600; margin-bottom: 3px; margin-left: 2px; font-size: 0.97em; color: #444;}
+    input[type="email"], input[type="password"] { width: 100%; padding: 12px; margin: 6px 0 18px 0; border-radius: 7px; border: 1px solid #bdbdbd; font-size: 1em;}
+    .ds-continue-btn {
+      width: 100%; background: linear-gradient(90deg, #ffa600, #08b71a 80%);
+      color: #fff; padding: 12px 0; border: none; border-radius: 9px; font-size: 1.08em;
+      font-weight: 700; cursor: pointer; margin-bottom: 14px;
+      display: flex; align-items: center; justify-content: center; gap: 9px;
+      transition: background 0.18s;
+    }
+    .ds-continue-btn:hover { background: linear-gradient(90deg, #ffbe44, #06a813 80%);}
+    .ds-footer { font-size: 1em; margin-top: 17px; color: #555;}
+    .ds-footer a { color: #08b71a; text-decoration: none; font-weight: 600; margin-left: 3px;}
+    .ds-account-container { display: none; }
+    .profile-avatar {
+      width: 80px; height: 80px; border-radius: 50%; margin-bottom: 18px;
+      object-fit: cover; box-shadow: 0 2px 8px #ddd;
+    }
+    @media (max-width: 600px) {
+      .ds-auth-container, .ds-account-container { max-width: 97vw;}
+      .navbar { padding: 10px 4vw; }
+      .dropdown-menu { right: 2vw; min-width: 95vw;}
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+    <div id="navbar-action"></div>
+    <div id="userDropdown" class="dropdown-menu"></div>
+  </nav>
+  <div class="ds-auth-container" id="authPanel" style="display:none;">
+    <img src="generated-image.jpg" alt="DarShana Logo" class="ds-logo">
+    <h2>Create your DarShana account</h2>
+    <p>Welcome! Start your personalized travel journey. Fill in the details to get started with DarShana.</p>
+    <button class="ds-google-btn" id="googleSignIn">
+      <span class="google-icon">&#x1F5A5;</span>
+      Continue with Google
+    </button>
+    <div class="ds-or-divider">
+      <span></span><span>or</span><span></span>
+    </div>
+    <form id="emailForm">
+      <label for="ds-email">Email address</label>
+      <input type="email" id="ds-email" required placeholder="Enter your email address" />
+      <button class="ds-continue-btn" type="submit">Continue <span>▶</span></button>
+    </form>
+    <div class="ds-footer">
+      Already have an account? <a href="#">Sign in</a>
+    </div>
+  </div>
+  <div class="ds-account-container" id="accountPanel">
+    <img id="userProfilePic" src="" class="profile-avatar" alt="User Profile Picture">
+    <h2>Welcome to DarShana!</h2>
+    <p id="userEmail"></p>
+  </div>
+  <script>
+    let currentUser = null;
+
+    function showNavbarLogin() {
+      document.getElementById('navbar-action').innerHTML =
+        '<button id="getStartedBtn" class="get-started-btn">Get Started</button>';
+      document.getElementById('getStartedBtn').onclick = function() {
+        document.getElementById('authPanel').style.display = 'block';
+        document.getElementById('accountPanel').style.display = 'none';
+        closeDropdown();
+      };
+    }
+
+    function showNavbarUser(name, email, img) {
+      document.getElementById('navbar-action').innerHTML =
+        `<button class="user-avatar-btn" id="profileAvatarBtn" aria-label="Profile">
+          <img src="${img}" class="user-pic" alt="Profile Pic">
+        </button>`;
+      currentUser = { name, email, img };
+      document.getElementById('profileAvatarBtn').onclick = toggleDropdown;
+    }
+
+    function showAccountPanel(email, img) {
+      document.getElementById('accountPanel').style.display = 'block';
+      document.getElementById('authPanel').style.display = 'none';
+      document.getElementById('userEmail').textContent = email;
+      document.getElementById('userProfilePic').src = img;
+      showNavbarUser(email.split('@')[0], email, img); // Split for name demo
+      closeDropdown();
+    }
+
+    function logoutUser() {
+      document.getElementById('accountPanel').style.display = 'none';
+      showNavbarLogin();
+      closeDropdown();
+      alert('You have been signed out!');
+    }
+
+    function toggleDropdown() {
+      const dropdown = document.getElementById('userDropdown');
+      if (dropdown.classList.contains('active')) {
+        dropdown.classList.remove('active');
+        dropdown.innerHTML = '';
+      } else {
+        dropdown.innerHTML = `
+          <div class="dropdown-profile">
+            <img src="${currentUser.img}" alt="Profile Pic">
+            <div class="name">${currentUser.name}</div>
+            <div class="email">${currentUser.email}</div>
+          </div>
+          <div class="dropdown-options">
+            <button onclick="alert('Account clicked')"><span class="icon">👤</span>Account</button>
+            <button onclick="alert('Subscription clicked')"><span class="icon">💳</span>Subscription</button>
+            <button onclick="alert('Reward History clicked')"><span class="icon">🎁</span>Reward History</button>
+            <button onclick="logoutUser()"><span class="icon">🚪</span>Sign Out</button>
+          </div>
+        `;
+        dropdown.classList.add('active');
+      }
+    }
+
+    function closeDropdown() {
+      const dropdown = document.getElementById('userDropdown');
+      dropdown.classList.remove('active');
+      dropdown.innerHTML = '';
+    }
+
+    document.addEventListener('click', function(event) {
+      if (!event.target.closest('#profileAvatarBtn') && !event.target.closest('#userDropdown')) {
+        closeDropdown();
+      }
+    });
+
+    document.addEventListener("DOMContentLoaded", function() {
+      showNavbarLogin();
+      document.getElementById('emailForm').onsubmit = function(e) {
+        e.preventDefault();
+        const email = document.getElementById('ds-email').value;
+        const img = 'https://api.dicebear.com/7.x/initials/svg?seed=' + encodeURIComponent(email);
+        showAccountPanel(email, img);
+      };
+      document.getElementById('googleSignIn').onclick = function() {
+        const email = "user@gmail.com";
+        const img = 'https://lh3.googleusercontent.com/a-/default-user.png';
+        showAccountPanel(email, img);
+      };
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,540 @@
+/* AI Analises to image and recommandation to trip plan */
+
+.container {
+  max-width: 940px;
+  margin: 48px auto;
+  padding: 38px;
+  background: #fff;
+  border-radius: 22px;
+  box-shadow: 0 2px 32px rgba(45,50,55,0.08);
+}
+h1, h2 {
+  text-align: center;
+  color: #202b35;
+  font-weight: 700;
+}
+.step-indicator {
+  text-align: center;
+  margin-bottom: 18px;
+}
+.step-indicator .dot {
+  display: inline-block;
+  height: 12px;
+  width: 12px;
+  margin: 0 6px;
+  border-radius: 50%;
+  background: #eee;
+  vertical-align: middle;
+  transition: background 0.22s;
+}
+.step-indicator .dot.active {
+  background: #3174fc;
+}
+.subtitle {
+  color: #5c6e85;
+  text-align: center;
+  font-size: 1.07em;
+  margin-bottom: 18px;
+}
+.mood-options {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 32px;
+  margin-top: 28px;
+}
+.mood-option {
+  background: #f7fafd;
+  border-radius: 18px;
+  box-shadow: 0 2px 16px rgba(34, 122, 252, 0.08);
+  width: 220px;
+  margin-bottom: 20px;
+  text-align: center;
+  padding: 28px 0 18px 0;
+  cursor: pointer;
+  font-size: 1.2em;
+  transition: box-shadow 0.15s, border 0.15s;
+  border: 2px solid transparent;
+}
+.mood-option.selected {
+  border: 2px solid #3174fc;
+  box-shadow: 0 4px 28px rgba(49,116,252,0.22);
+}
+.mood-option span {
+  font-size: 2em;
+  display: block;
+  margin-bottom: 8px;
+}
+.slider-section {
+  text-align: center;
+  margin: 40px 0;
+}
+.slider-title {
+  font-size: 1.3em;
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+.emoji-large {
+  font-size: 2.5em;
+  margin-bottom: 12px;
+}
+.slider-container {
+  margin-top: 10px;
+}
+.slider-labels {
+  display: flex;
+  justify-content: space-between;
+  color: #6c7d90;
+  font-size: 1em;
+  margin-top: 6px;
+}
+
+input[type=range] {
+  width: 80%;
+  accent-color: #3174fc;
+  margin: 0 10%;
+  height: 3px;
+}
+
+.card-recommend {
+  display: flex;
+  gap: 32px;
+  justify-content: center;
+  margin-top: 36px;
+  flex-wrap: wrap;
+}
+.recommend-card {
+  background: #f7fafd;
+  border-radius: 17px;
+  box-shadow: 0 2px 24px rgba(34,122,252,0.08);
+  width: 280px;
+  text-align: left;
+  overflow: hidden;
+  margin-bottom: 22px;
+}
+.recommend-card img {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+}
+.rc-info {
+  padding: 16px 18px;
+}
+.rc-title {
+  font-size: 1.18em;
+  font-weight: 600;
+  color: #202b35;
+  margin-bottom: 10px;
+}
+.rc-label {
+  display: inline-block;
+  background: #e5ebf6;
+  color: #3174fc;
+  border-radius: 12px;
+  padding: 2px 14px;
+  font-size: 0.98em;
+  margin-bottom: 6px;
+}
+.rc-tags {
+  margin-top: 8px;
+}
+.rc-tag {
+  background: #edf5fc;
+  color: #485b73;
+  border-radius: 10px;
+  padding: 2px 10px;
+  font-size: 0.96em;
+  margin-right: 6px;
+  margin-bottom: 3px;
+  display: inline-block;
+}
+
+.btn-row {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 28px;
+}
+button {
+  border: none;
+  padding: 12px 28px;
+  border-radius: 9px;
+  font-size: 1em;
+  font-weight: 500;
+  cursor: pointer;
+  box-shadow: 0 1px 9px rgba(49,116,252,0.09);
+  transition: background 0.16s;
+  margin: 0 7px;
+}
+.btn {
+  background: #3174fc;
+  color: #fff;
+}
+.btn-outline {
+  background: #fff;
+  color: #3174fc;
+  border: 2px solid #3174fc;
+}
+.btn-row .btn:active, .btn-row .btn-outline:active {
+  background: #1352bd;
+  color: #fff;
+}
+@media (max-width: 900px){
+  .container { padding: 18px; }
+  .card-recommend { flex-direction: column; align-items: center;}
+  .recommend-card { width: 95%; }
+}
+
+/* Festivals to recommandation  */
+
+.festivals-section {
+  max-width: 1100px;
+  margin: 48px auto 0 auto;
+  padding: 0 18px 50px 18px;
+}
+.festivals-header {
+  text-align: center;
+  margin-bottom: 34px;
+}
+.festivals-header h2 {
+  font-size: 2.6em;
+  font-weight: 700;
+  color: #222e3e;
+  margin-bottom: 10px;
+}
+.festivals-header p {
+  font-size: 1.15em;
+  color: #637093;
+  margin: 0 auto;
+  max-width: 540px;
+}
+
+.festivals-filters {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 18px;
+  margin-bottom: 38px;
+}
+.filter-btn {
+  background: #fff;
+  border: 2px solid #3174fc;
+  color: #3174fc;
+  font-weight: 500;
+  font-size: 1em;
+  padding: 8px 22px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background 0.16s, color 0.16s;
+}
+.filter-btn.selected,
+.filter-btn:active {
+  background: #3174fc;
+  color: #fff;
+}
+.festivals-filters select {
+  font-size: 1em;
+  padding: 7px 14px;
+  border-radius: 9px;
+  border: 1.5px solid #c0c8d6;
+  background: #fff;
+}
+
+.festival-cards {
+  display: flex;
+  gap: 30px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.festival-card {
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 2px 24px rgba(37, 120, 248, 0.08);
+  width: 318px;
+  overflow: hidden;
+  margin-bottom: 28px;
+  display: flex;
+  flex-direction: column;
+  transition: box-shadow 0.17s;
+}
+.festival-card:hover {
+  box-shadow: 0 6px 36px rgba(45,102,248,0.12);
+}
+.festival-img {
+  width: 100%;
+  height: 145px;
+  object-fit: cover;
+  background: #eaf0fa;
+}
+.festival-type {
+  position: absolute;
+  top: 18px;
+  right: 16px;
+  background: #f4e7d8;
+  color: #b86f1d;
+  font-weight: 600;
+  font-size: 1em;
+  border-radius: 8px;
+  padding: 4px 14px;
+  z-index: 2;
+  box-shadow: 0 1px 8px rgba(45,102,248,0.06);
+  letter-spacing: 0.5px;
+}
+.festival-type.cultural {
+  background: #eceafc;
+  color: #7051c6;
+}
+.festival-content {
+  position: relative;
+  padding: 22px 26px 18px 26px;
+}
+.festival-title {
+  font-size: 1.15em;
+  font-weight: 700;
+  color: #212f59;
+  margin-bottom: 7px;
+  margin-top: 0;
+}
+.festival-meta {
+  display: flex;
+  gap: 18px;
+  font-size: 0.98em;
+  color: #4878b1;
+  margin-bottom: 6px;
+}
+.festival-meta span {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.festival-desc {
+  font-size: 1em;
+  color: #4c5062;
+  margin-bottom: 12px;
+  margin-top: 7px;
+}
+.festival-experiences {
+  margin-bottom: 10px;
+}
+.exp-title {
+  font-weight: 600;
+  font-size: 1em;
+  margin-right: 10px;
+  color: #212f59;
+}
+.exp-tag {
+  background: #eaf2fd;
+  color: #3174fc;
+  border-radius: 8px;
+  padding: 3px 12px;
+  font-size: 0.99em;
+  margin-right: 4px;
+  margin-bottom: 3px;
+  display: inline-block;
+}
+.festival-card .learn-btn {
+  background: #3174fc;
+  color: #fff;
+  font-weight: 500;
+  font-size: 1em;
+  border: none;
+  border-radius: 8px;
+  padding: 11px 0;
+  margin-top: 10px;
+  width: 100%;
+  cursor: pointer;
+  transition: background 0.17s;
+}
+.festival-card .learn-btn:active {
+  background: #2059b0;
+}
+@media (max-width: 1100px) {
+  .festival-cards { flex-direction: column; align-items: center;}
+  .festival-card { width: 98%; }
+}
+
+  /* Same styles as before */
+  .destination-section {
+    padding: 20px;
+    font-family: Arial, sans-serif;
+    text-align: center;
+  }
+  .destinations {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 20px;
+  }
+  .destination-card {
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    width: 200px;
+    cursor: pointer;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+  }
+  .destination-card:hover {
+    transform: scale(1.05);
+  }
+  .destination-card img {
+    width: 100%;
+    height: 130px;
+    object-fit: cover;
+  }
+  .destination-card h3 {
+    margin: 10px 0;
+    color: #333;
+  }
+  .destination-details {
+    margin-top: 30px;
+    font-size: 1.1em;
+    color: #444;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* SEtting Button  */
+
+  .navbar {
+  display: flex;
+  justify-content: space-between; /* spread nav links and actions */
+  align-items: center;
+  background-color: var(--primary-light);
+  padding: 10px 20px;
+  position: relative;
+}
+
+.navbar-actions {
+  position: relative;
+}
+
+.btn {
+  background-color: var(--primary-light);
+  border: none;
+  color: white;
+  padding: 8px 14px;
+  border-radius: 6px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+  background-color: var(--primary-dark);
+}
+
+.settings-menu {
+  position: absolute;
+  top: 40px;
+  right: 0;
+  background: white;
+  color: #333;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+  border-radius: 8px;
+  min-width: 220px;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  transition: opacity 0.3s ease;
+}
+
+.settings-menu a {
+  padding: 12px 18px;
+  text-decoration: none;
+  color: #333;
+  font-weight: 600;
+  border-bottom: 1px solid #eee;
+  cursor: pointer;
+}
+
+.settings-menu a:last-child {
+  border-bottom: none;
+}
+
+.settings-menu a:hover,
+.settings-menu a:focus {
+  background-color: var(--primary-light);
+  color: white;
+}
+
+.hidden {
+  display:none;
+}
+
+
+/* DarShana logo animation  */
+/* DarShana Logo animation & text positioning */
+#logo-container {
+  position: relative;
+  text-align: center;
+  padding: 40px 20px;
+  background: #fff;   /* Remove if not needed */
+  z-index: 10;
+}
+
+#logo-container .logo-symbol {
+  width: 120px; 
+  height: 120px; 
+  margin: 0 auto 18px auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#logo-container .logo-symbol svg {
+  width: 100%; 
+  height: 100%;
+  display: block;
+  animation: spinMandala 1.7s forwards;
+}
+
+@keyframes spinMandala {
+  from { transform: rotate(-180deg) scale(0.7); opacity: 0; }
+  to   { transform: rotate(0deg) scale(1); opacity: 1; }
+}
+
+#logo-container .darshana-text {
+  font-family: 'Marhey', cursive, sans-serif;
+  font-size: 2.7em; 
+  letter-spacing: 0.08em;
+  color: #e65100;
+  margin-bottom: 10px;
+  opacity: 0;
+  animation: fadeText 1.6s 1s cubic-bezier(.66,.05,.34,.91) forwards;
+  text-shadow: 1px 2px 18px rgba(242,180,83,0.22);
+}
+
+@keyframes fadeText {
+  to { opacity: 1; }
+}
+
+#logo-container .tagline {
+  max-width: 700px;
+  margin: 0 auto;
+  font-size: 16px;
+  line-height: 1.6;
+  color: #444;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+.hero {
+  position: relative;
+  z-index: 1;   /* Hero ka content neeche rahe */
+}
+
+.hero {
+  height: 100vh;  /* Full screen height */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+nav {
+  margin-top: 300px;  /* apne animation ki height ke hisaab se adjust karo */
+}

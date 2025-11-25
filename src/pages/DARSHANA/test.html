@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>DarShana Multilingual</title>
+  <style>
+    body { font-family: Arial, sans-serif; }
+    .language-switcher {
+      position: absolute;
+      top: 16px;
+      right: 32px;
+      z-index: 1000;
+      background: #fff;
+      border-radius: 6px;
+      padding: 6px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+    }
+    .language-switcher select {
+      font-size: 1em;
+      padding: 4px 12px;
+    }
+  </style>
+</head>
+<body>
+  <!-- Language Selector Dropdown -->
+  <div class="language-switcher">
+    <select id="languageSwitcher">
+      <option value="en">English</option>
+      <option value="hi">हिन्दी</option>
+      <option value="es">Español</option>
+      <!-- Add more languages here -->
+    </select>
+  </div>
+
+  <!-- Site Content, all key text should have a unique id for translation -->
+  <h1 id="welcomeText"></h1>
+  <p id="aboutText"></p>
+  <button id="ctaButton"></button>
+
+  <script>
+    // Translation data for each language
+const translations = {
+  en: {
+    welcomeText: "Welcome to DarShana!",
+    aboutText: "Plan your amazing journey across India with us.",
+    ctaButton: "Start Exploring"
+  },
+  hi: {
+    welcomeText: "DarShana में आपका स्वागत है!",
+    aboutText: "हमारे साथ भारत की अद्भुत यात्रा की योजना बनाएं।",
+    ctaButton: "घूमना शुरू करें"
+  },
+  es: {
+    welcomeText: "¡Bienvenido a DarShana!",
+    aboutText: "Planifica tu viaje increíble por la India con nosotros.",
+    ctaButton: "Comienza a explorar"
+  }
+  // Add more languages/keys as needed
+};
+
+function setLanguage(lang) {
+  for (const key in translations[lang]) {
+    if (document.getElementById(key)) {
+      document.getElementById(key).innerText = translations[lang][key];
+    }
+  }
+}
+
+// Listen for dropdown changes
+document.getElementById("languageSwitcher").addEventListener("change", function() {
+  setLanguage(this.value);
+  localStorage.setItem("dars_lang", this.value); // Remember the preference
+});
+
+// On page load, set language based on previous choice or default
+window.onload = function() {
+  const savedLang = localStorage.getItem("dars_lang") || "en";
+  document.getElementById("languageSwitcher").value = savedLang;
+  setLanguage(savedLang);
+};
+
+  </script>
+</body>
+</html>

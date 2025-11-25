@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DarShana | Ultimate Photographer Portal</title>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+<style>
+/* ===== GLOBAL ===== */
+*{box-sizing:border-box;margin:0;padding:0;font-family:'Roboto',sans-serif;}
+body{background:linear-gradient(135deg,#f5f7fa,#c3cfe2);color:#333;min-height:100vh;}
+header{background:#004aad;padding:20px;color:#fff;text-align:center;position:sticky;top:0;z-index:1000;}
+header h1{font-size:2em;margin-bottom:10px;}
+header nav a{color:#fff;margin:0 15px;text-decoration:none;font-weight:bold;position:relative;transition:0.3s;}
+header nav a::after{content:'';position:absolute;width:0;height:2px;background:#ffdd59;left:0;bottom:-5px;transition:0.3s;}
+header nav a:hover::after{width:100%;}
+
+.section{max-width:1000px;margin:50px auto;background:#fff;padding:40px;border-radius:20px;box-shadow:0 10px 30px rgba(0,0,0,0.1);}
+h2{text-align:center;margin-bottom:30px;color:#004aad;position:relative;}
+h2::after{content:'';width:80px;height:3px;background:#ffdd59;display:block;margin:10px auto 0;border-radius:2px;}
+
+/* FORM */
+.form-group{margin-bottom:20px;position:relative;}
+.form-group label{display:block;margin-bottom:5px;font-weight:bold;}
+.form-group input,.form-group select,.form-group textarea{width:100%;padding:12px 15px;border-radius:10px;border:1px solid #ccc;font-size:14px;transition:all 0.3s ease;}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:#004aad;box-shadow:0 0 8px rgba(0,74,173,0.2);outline:none;}
+button{background:#004aad;color:#fff;padding:12px 30px;border:none;border-radius:10px;cursor:pointer;font-size:16px;display:block;margin:20px auto 0;transition:0.3s ease;}
+button:hover{background:#00307d;transform:scale(1.05);}
+
+/* PHOTOGRAPHER LIST */
+#photographerList{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:30px;margin-top:30px;}
+.photographer-card{background:linear-gradient(145deg,#ffffff,#f0f0f0);padding:20px;border-radius:20px;text-align:center;box-shadow:0 10px 25px rgba(0,0,0,0.05);transition:transform 0.3s,box-shadow 0.3s;position:relative;overflow:hidden;}
+.photographer-card img{max-width:120px;height:120px;border-radius:50%;object-fit:cover;margin-bottom:15px;border:3px solid #004aad;transition:transform 0.3s;}
+.photographer-card:hover img{transform:scale(1.1) rotate(5deg);}
+.photographer-card:hover{transform:translateY(-10px);box-shadow:0 20px 40px rgba(0,0,0,0.15);}
+.photographer-card h3{margin-bottom:10px;color:#004aad;}
+.photographer-card p{font-size:14px;margin-bottom:8px;}
+
+/* FILTER */
+.filter-container{display:flex;justify-content:center;flex-wrap:wrap;gap:15px;margin-bottom:30px;}
+.filter-container input,.filter-container select{padding:10px;border-radius:8px;border:1px solid #ccc;}
+
+/* MODAL */
+.modal{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.6);justify-content:center;align-items:center;z-index:2000;}
+.modal-content{background:#fff;padding:30px;border-radius:15px;max-width:500px;width:90%;position:relative;}
+.modal-content h3{margin-bottom:15px;color:#004aad;}
+.modal-content label{font-weight:bold;margin-top:10px;display:block;}
+.modal-content input,.modal-content select{width:100%;padding:10px;border-radius:8px;border:1px solid #ccc;margin-bottom:15px;}
+.modal-content button{margin-top:10px;}
+.close-btn{position:absolute;top:15px;right:15px;cursor:pointer;font-size:18px;font-weight:bold;color:#004aad;}
+
+/* ADMIN SECTION */
+#adminPanel{max-width:1000px;margin:50px auto;padding:30px;border-radius:20px;background:#fff;box-shadow:0 10px 30px rgba(0,0,0,0.1);}
+#adminPanel h2{text-align:center;margin-bottom:20px;color:#004aad;}
+.admin-card{padding:15px;margin-bottom:15px;border-radius:10px;background:#f0f0f0;box-shadow:0 5px 15px rgba(0,0,0,0.05);}
+.admin-card button{margin-top:10px;}
+
+/* RESPONSIVE */
+@media(max-width:768px){header nav a{display:block;margin:10px 0;}.section{margin:30px 20px;padding:30px 20px;}#photographerList{gap:20px;}}
+</style>
+</head>
+<body>
+
+<header>
+<h1>DarShana Ultimate Photographer Portal</h1>
+<nav>
+<a href="#registerPhotographer">Register</a>
+<a href="#bookPhotographer">Book</a>
+<a href="#adminPanel">Admin</a>
+<a href="index.html">Home</a>
+</nav>
+</header>
+
+<!-- Registration Section -->
+<section id="registerPhotographer" class="section">
+  <h2>Photographer/Videomaker Registration Portal</h2>
+  <div class="form-group">
+  <label for="role">Role *</label>
+  <select id="role" name="role" required>
+    <option value="" disabled selected>Select Role</option>
+    <option value="photographer">Photographer</option>
+    <option value="videomaker">Videomaker</option>
+  </select>
+</div>
+
+  <form id="photographerForm" enctype="multipart/form-data">
+    <div class="form-group">
+      <label for="fullName">Full Name *</label>
+      <input type="text" id="fullName" name="fullName" required placeholder="Your full name" />
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label for="dob">Date of Birth *</label>
+        <input type="date" id="dob" name="dob" required />
+      </div>
+      <div class="form-group">
+        <label for="gender">Gender *</label>
+        <select id="gender" name="gender" required>
+          <option value="" disabled selected>Select Gender</option>
+          <option>Male</option>
+          <option>Female</option>
+          <option>Other</option>
+          <option>Prefer not to say</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="email">Email Address *</label>
+      <input type="email" id="email" name="email" required placeholder="name@example.com" />
+    </div>
+
+    <div class="form-group">
+      <label for="phone">Phone Number *</label>
+      <input type="tel" id="phone" name="phone" required placeholder="+91-9876543210" pattern="[+0-9\s-]+" />
+    </div>
+
+    <div class="form-group">
+      <label for="address">Complete Address *</label>
+      <textarea id="address" name="address" rows="3" placeholder="Street, City, State, Zip" required></textarea>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label for="jobShift">Preferred Job Shift</label>
+        <select id="jobShift" name="jobShift">
+          <option>Morning</option>
+          <option>Afternoon</option>
+          <option>Evening</option>
+          <option>Night</option>
+          <option>Flexible</option>
+        </select>
+      </div>
+      <div class="form-group"><label for="job">Specialization</label><input type="text" id="job" name="job" placeholder="Wedding, Portrait, Travel..." required></div>
+
+      <div class="form-group">
+        <label for="availability">Availability Date</label>
+        <input type="date" id="availability" name="availability" />
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="fees">Fee Per Hour (INR) *</label>
+      <input type="number" id="fees" name="fees" min="0" required placeholder="500" />
+    </div>
+
+    <div class="form-group">
+      <label for="location">Photography Location / Area *</label>
+      <input type="text" id="location" name="location" required placeholder="City or Region" />
+    </div>
+
+    <div class="form-group">
+      <label for="certification">Certifications & Experience</label>
+      <textarea id="certification" name="certification" rows="4"
+        placeholder="Describe your photography certifications and experience"></textarea>
+    </div>
+
+    <div class="form-group">
+      <label for="photo">Upload Your Profile Photo *</label>
+      <input type="file" id="photo" name="photo" accept="image/*" required onchange="previewProfilePhoto(event)" />
+      <div id="photoPreview" style="margin-top:10px;"></div>
+    </div>
+
+    <div class="form-group">
+      <label for="portfolio">Portfolio / Sample Photos (Optional)</label>
+      <input type="file" id="portfolio" name="portfolio" accept="image/*" multiple />
+    </div>
+
+    <label class="terms">
+      <input type="checkbox" id="terms" name="terms" required />
+      I agree to the <a href="terms.html" target="_blank" rel="noopener">Terms and Conditions</a>
+    </label>
+
+    <button type="submit" class="submit-btn">Submit Registration</button>
+    <p id="formMessage"></p>
+  </form>
+</section>
+
+
+<!-- Photographer Booking Section -->
+<section id="bookPhotographer" class="section">
+<h2>Book a Photographer</h2>
+<div class="filter-container">
+<input type="text" id="filterLocation" placeholder="Filter by Location">
+<input type="text" id="filterJob" placeholder="Filter by Specialization">
+<select id="filterShift"><option value="">All Shifts</option><option value="morning">Morning</option><option value="afternoon">Afternoon</option><option value="evening">Evening</option><option value="night">Night</option></select>
+</div>
+<div id="photographerList"><p>Loading photographers...</p></div>
+</section>
+
+<!-- Booking Modal -->
+<div id="bookingModal" class="modal">
+<div class="modal-content">
+<span class="close-btn" onclick="closeModal()">&times;</span>
+<h3 id="modalPhotographerName"></h3>
+<label for="bookingDate">Select Date:</label>
+<input type="date" id="bookingDate" required>
+<label for="bookingShift">Select Shift:</label>
+<select id="bookingShift" required><option value="morning">Morning</option><option value="afternoon">Afternoon</option><option value="evening">Evening</option><option value="night">Night</option></select>
+<button onclick="confirmBooking()">Pay & Confirm Booking</button>
+</div>
+</div>
+
+<!-- Admin Panel -->
+<section id="adminPanel" class="section">
+<h2>Admin Dashboard</h2>
+<div id="adminPhotographers"></div>
+<div id="adminBookings"></div>
+</section>
+
+<!-- Firebase SDK -->
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+
+
+<!-- Firebase SDK -->
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+
+<!-- Firebase SDK -->
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+
+<script>
+// ===== FIREBASE CONFIG =====
+const firebaseConfig = {
+  apiKey: "AIzaSyBOBSih5TqSi1N_acZcAK4t2ZMy719x-7o",
+  authDomain: "darshana-eac72.firebaseapp.com",
+  projectId: "darshana-eac72",
+  storageBucket: "darshana-eac72.appspot.com",
+  messagingSenderId: "436445068467",
+  appId: "1:436445068467:web:c433c2250054dd24b384c6"
+};
+
+firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();
+
+
+// ===== FORM ELEMENTS =====
+const photographerForm = document.getElementById('photographerForm');
+const formMessage = document.getElementById('formMessage');
+
+// ===== PREVIEW PROFILE PHOTO =====
+function previewProfilePhoto(event) {
+  const preview = document.getElementById('photoPreview');
+  preview.innerHTML = "";
+  const file = event.target.files[0];
+  if(file){
+    const img = document.createElement('img');
+    img.src = URL.createObjectURL(file);
+    img.style.width = "120px";
+    img.style.height = "120px";
+    img.style.borderRadius = "50%";
+    img.style.objectFit = "cover";
+    img.style.border = "2px solid #004aad";
+    preview.appendChild(img);
+  }
+}
+
+// ===== FILE TO BASE64 HELPER =====
+function fileToBase64(file){
+  return new Promise((resolve, reject)=>{
+    const reader = new FileReader();
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = error => reject(error);
+    reader.readAsDataURL(file);
+  });
+}
+
+// ===== SUBMIT REGISTRATION =====
+form.addEventListener("submit", async (e) => {
+  e.preventDefault();
+
+  const fullName = document.getElementById("fullName").value.trim();
+  const email = document.getElementById("email").value.trim();
+  const phone = document.getElementById("phone").value.trim();
+  const dob = document.getElementById("dob").value;
+  const address = document.getElementById("address").value.trim();
+  const jobShift = document.getElementById("jobShift").value;
+  const jobType = document.getElementById("jobType").value;
+  const fees = document.getElementById("fees").value.trim();
+  const certification = document.getElementById("certification").value.trim();
+  const location = document.getElementById("location").value.trim();
+  const photoFile = document.getElementById("photo").files[0];
+
+  if (!fullName || !email || !phone || !dob || !address || !jobShift || !jobType || !fees || !location || !photoFile) {
+    formMessage.textContent = "⚠️ Please fill all fields and upload a photo.";
+    formMessage.style.color = "red";
+    return;
+  }
+
+  const reader = new FileReader();
+  reader.onloadend = async () => {
+    const photoBase64 = reader.result;
+
+    const photographerData = {
+      fullName,
+      email,
+      phone,
+      dob,
+      address,
+      jobShift,
+      jobType,
+      fees,
+      certification,
+      location,
+      photo: photoBase64,
+      approved: false,
+      createdAt: firebase.firestore.FieldValue.serverTimestamp()
+    };
+
+    const role = document.getElementById("role").value;
+if(!role){ formMessage.textContent = "⚠️ Please select a role."; formMessage.style.color="red"; return; }
+
+const photographerData = {
+  fullName, email, phone, location, fees, photo:reader.result,
+  role, approved:false, createdAt:firebase.firestore.FieldValue.serverTimestamp()
+};
+
+
+    try {
+      // Save to Firestore and get document reference
+      const docRef = await db.collection("photographers").add(photographerData);
+
+      // Generate Unique Photographer ID
+      const photographerId = docRef.id;
+
+      // Update doc with the ID field also
+      await docRef.update({ photographerId: photographerId });
+
+      formMessage.textContent = `✅ Registration successful! Your Photographer ID: ${photographerId}`;
+      formMessage.style.color = "green";
+      form.reset();
+
+    } catch (error) {
+      console.error("Error adding photographer: ", error);
+      formMessage.textContent = "❌ Error! Could not submit.";
+      formMessage.style.color = "red";
+    }
+  };
+
+  reader.readAsDataURL(photoFile);
+});
+
+</script>
+
+</body>
+</html>

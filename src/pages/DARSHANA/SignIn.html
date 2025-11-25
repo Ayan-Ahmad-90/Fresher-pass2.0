@@ -1,0 +1,146 @@
+<!-- signin.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>DarShana - Sign In</title>
+  <link rel="stylesheet" href="auth-style.css">
+    <style>
+    body {
+  background: #f9f9fa;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+}
+.ds-auth-container {
+  max-width: 400px;
+  margin: 60px auto;
+  padding: 36px 28px 18px 28px;
+  background: #fff;
+  border-radius: 18px;
+  box-shadow: 0 8px 48px rgba(0,0,0,0.09);
+  text-align: center;
+  font-family: 'Segoe UI', Arial, sans-serif;
+}
+.ds-logo {
+  width: 58px;
+  margin-bottom: 20px;
+}
+.ds-auth-container h2 {
+  margin-bottom: 7px;
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: #ffa600;
+}
+.ds-auth-container p {
+  margin-bottom: 24px;
+  color: #333;
+  font-size: 1rem;
+}
+.ds-google-btn {
+  width: 100%;
+  padding: 11px 0;
+  border-radius: 9px;
+  border: 1px solid #ddd;
+  background: #fafbfc;
+  font-weight: 600;
+  margin-bottom: 20px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+.google-icon {
+  font-size: 1.2em;
+}
+.ds-or-divider {
+  display: flex;
+  align-items: center;
+  margin: 14px 0 12px 0;
+  color: #999;
+  font-size: 1rem;
+  gap: 9px;
+}
+.ds-or-divider span:first-child,
+.ds-or-divider span:last-child {
+  flex-grow: 1;
+  height: 1px;
+  background: #eee;
+}
+label {
+  display: block;
+  text-align: left;
+  font-weight: 600;
+  margin-bottom: 3px;
+  margin-left: 2px;
+  font-size: 0.97em;
+  color: #444;
+}
+input[type="email"],
+input[type="password"] {
+  width: 100%;
+  padding: 12px;
+  margin: 6px 0 18px 0;
+  border-radius: 7px;
+  border: 1px solid #bdbdbd;
+  font-size: 1em;
+}
+.ds-continue-btn {
+  width: 100%;
+  background: linear-gradient(90deg, #ffa600, #08b71a 80%);
+  color: #fff;
+  padding: 12px 0;
+  border: none;
+  border-radius: 9px;
+  font-size: 1.08em;
+  font-weight: 700;
+  cursor: pointer;
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  transition: background 0.18s;
+}
+.ds-continue-btn:hover {
+  background: linear-gradient(90deg, #ffbe44, #06a813 80%);
+}
+.ds-footer {
+  font-size: 1em;
+  margin-top: 17px;
+  color: #555;
+}
+.ds-footer a {
+  color: #08b71a;
+  text-decoration: none;
+  font-weight: 600;
+  margin-left: 3px;
+}
+@media (max-width: 480px) {
+  .ds-auth-container {
+    max-width: 96vw;
+    padding: 26px 4vw 18px 4vw;
+  }
+}
+
+  </style>
+</head>
+<body>
+  <div class="ds-auth-container">
+    <img src="generated-image.png" alt="DarShana Logo" class="ds-logo">
+    <h2>Sign in to DarShana</h2>
+    <p>Log in to access your saved trips, preferences, and personalized travel dashboard.</p>
+    <form>
+      <label for="signin-email">Email address</label>
+      <input type="email" id="signin-email" required placeholder="Enter your email address">
+      <label for="signin-password">Password</label>
+      <input type="password" id="signin-password" required placeholder="Enter your password">
+      <button class="ds-continue-btn" type="submit">Log In</button>
+    </form>
+    <div class="ds-footer">
+      Don’t have an account? <a href="test.html">Create one</a>
+    </div>
+  </div>
+</body>
+</html>
